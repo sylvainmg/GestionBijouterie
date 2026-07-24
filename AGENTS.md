@@ -36,7 +36,7 @@ Application desktop de gestion de bijouterie.
 ### À venir
 - [ ] Étape 2 — Modèles de données + DbContext + migration initiale + seed
 - [ ] Étape 3 — Authentification (login/logout, hash, session, écran login FluentAvalonia)
-- [ ] Étape 4 — Shell principal (NavigationView FluentAvalonia, menus par rôle)
+- [x] Étape 4 — Shell principal (DockPanel/ListBox, menus par rôle, déconnexion)
 - [ ] Étape 5 — Module Catégories (CRUD)
 - [ ] Étape 6 — Module Bijoux (CRUD + photo + recherche)
 - [ ] Étape 7 — Module Clients (CRUD + recherche)
@@ -54,3 +54,4 @@ Application desktop de gestion de bijouterie.
 - Projets nommés BijouterieApp.{Core,Data,App,Tests}
 - FluentAvaloniaUI v3.0.2 est compatible avec Avalonia 12.1.0
 - QuestPDF 2026.7.1 — licence Community gratuite pour revenu < $1M
+- **Navigation**: Le shell utilise `DockPanel` + `ListBox` au lieu de `FANavigationView` (FluentAvalonia 3.0.2). La classe `FANavigationView` existe mais est instable en résolution XAML (propriétés non reconnues). À réévaluer dans une version ultérieure de FluentAvalonia ou si un contournement XAML est trouvé.

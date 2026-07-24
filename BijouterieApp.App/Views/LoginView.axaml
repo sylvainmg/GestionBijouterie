@@ -1,0 +1,49 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="500"
+             xmlns:vm="using:BijouterieApp.App.ViewModels"
+             x:Class="BijouterieApp.App.Views.LoginView"
+             x:DataType="vm:LoginViewModel">
+    <Grid Background="{StaticResource SystemAccentColor}">
+        <Border HorizontalAlignment="Center" VerticalAlignment="Center"
+                Width="360" Padding="30"
+                Background="{StaticResource SolidBackgroundFillColorBase}"
+                CornerRadius="8" BoxShadow="0 4 12 rgba(0,0,0,0.15)">
+            <StackPanel Spacing="16">
+                <TextBlock Text="Gestion Bijouterie"
+                           FontSize="24" FontWeight="Bold"
+                           HorizontalAlignment="Center"
+                           Foreground="{StaticResource TextFillColorPrimary}" />
+                <TextBlock Text="Connexion"
+                           FontSize="14"
+                           HorizontalAlignment="Center"
+                           Foreground="{StaticResource TextFillColorSecondary}"
+                           Margin="0,0,0,8" />
+
+                <TextBlock Text="Login" Foreground="{StaticResource TextFillColorPrimary}" />
+<TextBox Text="{Binding Login}"
+                          PlaceholderText="Saisissez votre login" />
+
+                 <TextBlock Text="Mot de passe" Foreground="{StaticResource TextFillColorPrimary}" />
+                 <TextBox Text="{Binding MotDePasse}"
+                          PlaceholderText="Saisissez votre mot de passe"
+                         PasswordChar="*" />
+
+                <TextBlock Text="{Binding MessageErreur}"
+                           Foreground="{StaticResource SystemErrorTextColor}"
+                           IsVisible="{Binding MessageErreur, Converter={x:Static StringConverters.IsNotNullOrEmpty}}" />
+
+                <Button Content="Se connecter"
+                        Command="{Binding SeConnecterCommand}"
+                        IsEnabled="{Binding EstCharge, Converter={x:Static BoolConverters.Not}}"
+                        HorizontalAlignment="Stretch"
+                        Margin="0,8,0,0" />
+
+                <ProgressBar IsIndeterminate="True"
+                             IsVisible="{Binding EstCharge}" />
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>

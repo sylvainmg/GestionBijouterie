@@ -1,0 +1,40 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="1200" d:DesignHeight="800"
+             xmlns:vm="using:BijouterieApp.App.ViewModels"
+             x:Class="BijouterieApp.App.Views.MainShellView"
+             x:DataType="vm:MainShellViewModel">
+    <DockPanel>
+        <Border DockPanel.Dock="Top" Padding="12,8"
+                Background="{StaticResource SystemAccentColor}">
+            <TextBlock Text="{Binding MessageBienvenue}"
+                       FontSize="18" FontWeight="SemiBold"
+                       Foreground="White" />
+        </Border>
+        <Border DockPanel.Dock="Left" Width="200"
+                Background="{StaticResource CardBackgroundFillColorDefault}">
+            <DockPanel>
+                <Button DockPanel.Dock="Bottom" Content="Déconnexion"
+                        Command="{Binding SeDeconnecterCommand}"
+                        Margin="8" Padding="8,6" />
+                <ListBox ItemsSource="{Binding ItemsMenu}"
+                         SelectedIndex="{Binding IndexSelection}"
+                         BorderThickness="0"
+                         Background="Transparent">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Libelle}"
+                                       Padding="12,8"
+                                       FontSize="14" />
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </DockPanel>
+        </Border>
+        <Border Background="{StaticResource SolidBackgroundFillColorBase}">
+            <ContentControl Content="{Binding CurrentView}" />
+        </Border>
+    </DockPanel>
+</UserControl>

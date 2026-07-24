@@ -1,9 +1,19 @@
 <Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        xmlns:vm="using:BijouterieApp.App.ViewModels"
+        xmlns:v="using:BijouterieApp.App.Views"
         x:Class="BijouterieApp.App.MainWindow"
-        Title="BijouterieApp.App">
-    Welcome to Avalonia!
+        x:DataType="vm:MainViewModel"
+        Title="Gestion Bijouterie"
+        Width="1200" Height="800"
+        WindowStartupLocation="CenterScreen">
+    <Window.DataTemplates>
+        <DataTemplate DataType="{x:Type vm:LoginViewModel}">
+            <v:LoginView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:MainShellViewModel}">
+            <v:MainShellView />
+        </DataTemplate>
+    </Window.DataTemplates>
+    <ContentControl Content="{Binding CurrentView}" />
 </Window>
