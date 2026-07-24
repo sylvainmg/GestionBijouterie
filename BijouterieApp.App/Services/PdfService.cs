@@ -331,12 +331,31 @@ public class PdfService
         try
         {
             if (OperatingSystem.IsLinux())
-                Process.Start("xdg-open", chemin);
+            {
+                var psi = new ProcessStartInfo("xdg-open", chemin)
+                {
+                    UseShellExecute = false,
+                    CreateNoWindow = true
+                };
+                Process.Start(psi);
+            }
             else if (OperatingSystem.IsWindows())
+            {
                 Process.Start(new ProcessStartInfo(chemin) { UseShellExecute = true });
+            }
             else if (OperatingSystem.IsMacOS())
-                Process.Start("open", chemin);
+            {
+                var psi = new ProcessStartInfo("open", chemin)
+                {
+                    UseShellExecute = false,
+                    CreateNoWindow = true
+                };
+                Process.Start(psi);
+            }
         }
-        catch { }
+        catch (Exception ex)
+        {
+            System.Diagnostics.Debug.WriteLine($"Erreur ouverture PDF : {ex.Message}");
+        }
     }
 }
