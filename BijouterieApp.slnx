@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="BijouterieApp.App/BijouterieApp.App.csproj" />
+  <Project Path="BijouterieApp.Core/BijouterieApp.Core.csproj" />
+  <Project Path="BijouterieApp.Data/BijouterieApp.Data.csproj" />
+  <Project Path="BijouterieApp.Tests/BijouterieApp.Tests.csproj" />
+</Solution>
