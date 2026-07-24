@@ -2,14 +2,107 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="600"
+             mc:Ignorable="d" d:DesignWidth="1100" d:DesignHeight="700"
              xmlns:vm="using:BijouterieApp.App.ViewModels"
              x:Class="BijouterieApp.App.Views.StockView"
              x:DataType="vm:StockViewModel">
-    <Grid Background="{StaticResource SolidBackgroundFillColorBase}">
-        <TextBlock Text="{Binding Titre}"
-                   FontSize="24" FontWeight="Bold"
-                   HorizontalAlignment="Center" VerticalAlignment="Center"
-                   Foreground="{StaticResource TextFillColorPrimary}" />
+  <DockPanel Margin="16">
+    <StackPanel DockPanel.Dock="Top" Spacing="8" Margin="0,0,0,12">
+      <TextBlock Text="Gestion du Stock" FontSize="22" FontWeight="Bold"
+                 Foreground="{StaticResource TextFillColorPrimary}" />
+      <StackPanel Orientation="Horizontal" Spacing="16">
+        <TextBox PlaceholderText="Rechercher un bijou..." Text="{Binding Recherche}"
+                 Width="300" UseFloatingPlaceholder="False" />
+        <CheckBox Content="Afficher alertes (stock ≤ seuil)"
+                  IsChecked="{Binding AfficherAlertes}" />
+        <StackPanel Spacing="2">
+          <TextBlock Text="Seuil alerte" FontSize="10" Foreground="{StaticResource TextFillColorSecondary}" />
+          <NumericUpDown Value="{Binding SeuilAlerte}" Minimum="1" Maximum="100"
+                         Width="100" FormatString="N0" />
+        </StackPanel>
+      </StackPanel>
+    </StackPanel>
+
+    <Grid ColumnDefinitions="*,340" RowDefinitions="*">
+      <!-- Colonne gauche : DataGrid stock + mouvements -->
+      <DockPanel Grid.Column="0" Margin="0,0,16,0">
+        <DataGrid ItemsSource="{Binding BijouxFiltres}"
+                  SelectedItem="{Binding BijouSelectionne}"
+                  AutoGenerateColumns="False"
+                  IsReadOnly="True"
+                  Background="{StaticResource CardBackgroundFillColorDefault}"
+                  BorderBrush="{StaticResource CardStrokeColorDefault}"
+                  BorderThickness="1" CornerRadius="4" HeadersVisibility="Column">
+          <DataGrid.Columns>
+            <DataGridTextColumn Header="Réf." Binding="{Binding Reference}" Width="90" />
+            <DataGridTextColumn Header="Nom" Binding="{Binding Nom}" Width="*" />
+            <DataGridTextColumn Header="Catégorie" Binding="{Binding Categorie.Nom}" Width="120" />
+            <DataGridTextColumn Header="Prix (Ar)" Binding="{Binding Prix, StringFormat='{}{0:N0}'}" Width="110" />
+            <DataGridTextColumn Header="Stock" Binding="{Binding QuantiteStock}" Width="80" />
+          </DataGrid.Columns>
+        </DataGrid>
+
+        <Border DockPanel.Dock="Bottom" Background="{StaticResource CardBackgroundFillColorDefault}"
+                BorderBrush="{StaticResource CardStrokeColorDefault}" BorderThickness="1"
+                CornerRadius="4" Padding="12" Margin="0,8,0,0"
+                IsVisible="{Binding BijouSelectionne, Converter={x:Static ObjectConverters.IsNotNull}}">
+          <StackPanel Spacing="6">
+            <TextBlock Text="Historique des mouvements" FontWeight="SemiBold" FontSize="14"
+                       Foreground="{StaticResource TextFillColorPrimary}" />
+            <DataGrid ItemsSource="{Binding Mouvements}"
+                      AutoGenerateColumns="False" IsReadOnly="True"
+                      MaxHeight="200"
+                      Background="{StaticResource CardBackgroundFillColorDefault}"
+                      BorderBrush="{StaticResource CardStrokeColorDefault}"
+                      BorderThickness="1" CornerRadius="4" HeadersVisibility="Column">
+              <DataGrid.Columns>
+                <DataGridTextColumn Header="Date" Binding="{Binding Date, StringFormat='{}{0:dd/MM/yyyy HH:mm}'}" Width="140" />
+                <DataGridTextColumn Header="Type" Binding="{Binding Type}" Width="80" />
+                <DataGridTextColumn Header="Qté" Binding="{Binding Quantite}" Width="60" />
+                <DataGridTextColumn Header="Employé" Binding="{Binding Employe.Prenom}" Width="100" />
+                <DataGridTextColumn Header="Commentaire" Binding="{Binding Commentaire}" Width="*" />
+              </DataGrid.Columns>
+            </DataGrid>
+          </StackPanel>
+        </Border>
+      </DockPanel>
+
+      <!-- Colonne droite : formulaire entrée de stock -->
+      <Border Grid.Column="1"
+              Background="{StaticResource CardBackgroundFillColorDefault}"
+              BorderBrush="{StaticResource CardStrokeColorDefault}"
+              BorderThickness="1" CornerRadius="8" Padding="16">
+        <StackPanel Spacing="12" VerticalAlignment="Top">
+          <TextBlock Text="Entrée de stock"
+                     FontWeight="SemiBold" FontSize="16"
+                     Foreground="{StaticResource TextFillColorPrimary}" />
+
+          <TextBlock Text="{Binding BijouSelectionne.Nom}"
+                     FontWeight="Bold" FontSize="14" TextWrapping="Wrap"
+                     Foreground="{StaticResource TextFillColorPrimary}"
+                     IsVisible="{Binding BijouSelectionne, Converter={x:Static ObjectConverters.IsNotNull}}" />
+
+          <TextBlock Text="Sélectionnez un bijou dans le tableau"
+                     Foreground="{StaticResource TextFillColorSecondary}"
+                     IsVisible="{Binding BijouSelectionne, Converter={x:Static ObjectConverters.IsNull}}" />
+
+          <TextBlock Text="Quantité à ajouter" Foreground="{StaticResource TextFillColorSecondary}" FontSize="12" />
+          <NumericUpDown Value="{Binding QuantiteEntree}" Minimum="1" Maximum="9999"
+                         FormatString="N0" />
+
+          <TextBox PlaceholderText="Commentaire (optionnel)"
+                   Text="{Binding CommentaireEntree}"
+                   AcceptsReturn="True" MinHeight="60" TextWrapping="Wrap" />
+
+          <Button Command="{Binding EntrerStockCommand}" Content="Ajouter au stock"
+                  Classes="accent" HorizontalAlignment="Stretch" />
+
+          <TextBlock Text="{Binding MessageErreur}"
+                     Foreground="{StaticResource SystemErrorTextColor}" TextWrapping="Wrap" />
+          <TextBlock Text="{Binding MessageSucces}"
+                     Foreground="Green" TextWrapping="Wrap" />
+        </StackPanel>
+      </Border>
     </Grid>
+  </DockPanel>
 </UserControl>

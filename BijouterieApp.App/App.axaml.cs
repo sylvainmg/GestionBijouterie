@@ -52,6 +52,14 @@ public partial class App : Application
 
         services.AddSingleton<SessionManager>();
         services.AddTransient<AuthentificationService>();
+        services.AddTransient<CategorieService>();
+        services.AddTransient<BijouService>();
+        services.AddTransient<ClientService>();
+        services.AddTransient<StockService>();
+        services.AddTransient<VenteService>();
+        services.AddTransient<EmployeService>();
+        services.AddTransient<PdfService>();
+        services.AddTransient<DashboardService>();
 
         services.AddTransient<LoginViewModel>();
         services.AddTransient<AccueilViewModel>();

@@ -1,8 +1,40 @@
 <Application xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:BijouterieApp.App.ViewModels"
+             xmlns:vw="using:BijouterieApp.App.Views"
              x:Class="BijouterieApp.App.App"
              RequestedThemeVariant="Light">
     <Application.Styles>
         <FluentTheme />
+        <StyleInclude Source="avares://Avalonia.Controls.DataGrid/Themes/Fluent.xaml" />
     </Application.Styles>
+    <Application.DataTemplates>
+        <DataTemplate DataType="vm:LoginViewModel">
+            <vw:LoginView />
+        </DataTemplate>
+        <DataTemplate DataType="vm:MainShellViewModel">
+            <vw:MainShellView />
+        </DataTemplate>
+        <DataTemplate DataType="vm:AccueilViewModel">
+            <vw:AccueilView />
+        </DataTemplate>
+        <DataTemplate DataType="vm:CategoriesViewModel">
+            <vw:CategoriesView />
+        </DataTemplate>
+        <DataTemplate DataType="vm:BijouxViewModel">
+            <vw:BijouxView />
+        </DataTemplate>
+        <DataTemplate DataType="vm:ClientsViewModel">
+            <vw:ClientsView />
+        </DataTemplate>
+        <DataTemplate DataType="vm:StockViewModel">
+            <vw:StockView />
+        </DataTemplate>
+        <DataTemplate DataType="vm:VentesViewModel">
+            <vw:VentesView />
+        </DataTemplate>
+        <DataTemplate DataType="vm:EmployesViewModel">
+            <vw:EmployesView />
+        </DataTemplate>
+    </Application.DataTemplates>
 </Application>

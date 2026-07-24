@@ -2,25 +2,136 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="600"
+             mc:Ignorable="d" d:DesignWidth="1000" d:DesignHeight="700"
              xmlns:vm="using:BijouterieApp.App.ViewModels"
              x:Class="BijouterieApp.App.Views.AccueilView"
              x:DataType="vm:AccueilViewModel">
-    <Grid Background="{StaticResource SolidBackgroundFillColorBase}">
-        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Spacing="16">
-            <TextBlock Text="{Binding MessageBienvenue}"
-                       FontSize="28" FontWeight="Bold"
-                       HorizontalAlignment="Center"
-                       Foreground="{StaticResource TextFillColorPrimary}" />
-            <TextBlock Text="{Binding DateHeure}"
-                       FontSize="16"
-                       HorizontalAlignment="Center"
+  <ScrollViewer>
+    <StackPanel Margin="24" Spacing="20">
+      <StackPanel Spacing="4">
+        <TextBlock Text="{Binding MessageBienvenue}"
+                   FontSize="28" FontWeight="Bold"
+                   Foreground="{StaticResource TextFillColorPrimary}" />
+        <TextBlock Text="{Binding DateHeure}"
+                   FontSize="14"
+                   Foreground="{StaticResource TextFillColorSecondary}" />
+      </StackPanel>
+
+      <TextBlock Text="Statistiques" FontSize="20" FontWeight="SemiBold"
+                 Foreground="{StaticResource TextFillColorPrimary}" />
+
+      <WrapPanel HorizontalAlignment="Left">
+        <!-- Nombre de bijoux -->
+        <Border Width="220" CornerRadius="8" Padding="20" Margin="0,0,12,12"
+                Background="{StaticResource CardBackgroundFillColorDefault}"
+                BorderBrush="{StaticResource CardStrokeColorDefault}" BorderThickness="1">
+          <StackPanel Spacing="4">
+            <TextBlock Text="Bijoux" FontSize="14"
                        Foreground="{StaticResource TextFillColorSecondary}" />
-            <TextBlock Text="Gestion Bijouterie v1.0"
-                       FontSize="14"
-                       HorizontalAlignment="Center"
-                       Foreground="{StaticResource TextFillColorTertiary}"
-                       Margin="0,32,0,0" />
-        </StackPanel>
-    </Grid>
+            <TextBlock Text="{Binding NombreBijoux}"
+                       FontSize="36" FontWeight="Bold"
+                       Foreground="{StaticResource TextFillColorPrimary}" />
+          </StackPanel>
+        </Border>
+
+        <!-- Nombre de clients -->
+        <Border Width="220" CornerRadius="8" Padding="20" Margin="0,0,12,12"
+                Background="{StaticResource CardBackgroundFillColorDefault}"
+                BorderBrush="{StaticResource CardStrokeColorDefault}" BorderThickness="1">
+          <StackPanel Spacing="4">
+            <TextBlock Text="Clients" FontSize="14"
+                       Foreground="{StaticResource TextFillColorSecondary}" />
+            <TextBlock Text="{Binding NombreClients}"
+                       FontSize="36" FontWeight="Bold"
+                       Foreground="{StaticResource TextFillColorPrimary}" />
+          </StackPanel>
+        </Border>
+
+        <!-- Nombre de ventes -->
+        <Border Width="220" CornerRadius="8" Padding="20" Margin="0,0,12,12"
+                Background="{StaticResource CardBackgroundFillColorDefault}"
+                BorderBrush="{StaticResource CardStrokeColorDefault}" BorderThickness="1">
+          <StackPanel Spacing="4">
+            <TextBlock Text="Ventes totales" FontSize="14"
+                       Foreground="{StaticResource TextFillColorSecondary}" />
+            <TextBlock Text="{Binding NombreVentes}"
+                       FontSize="36" FontWeight="Bold"
+                       Foreground="{StaticResource TextFillColorPrimary}" />
+          </StackPanel>
+        </Border>
+
+        <!-- Employés -->
+        <Border Width="220" CornerRadius="8" Padding="20" Margin="0,0,12,12"
+                Background="{StaticResource CardBackgroundFillColorDefault}"
+                BorderBrush="{StaticResource CardStrokeColorDefault}" BorderThickness="1">
+          <StackPanel Spacing="4">
+            <TextBlock Text="Employés" FontSize="14"
+                       Foreground="{StaticResource TextFillColorSecondary}" />
+            <TextBlock Text="{Binding NombreEmployes}"
+                       FontSize="36" FontWeight="Bold"
+                       Foreground="{StaticResource TextFillColorPrimary}" />
+          </StackPanel>
+        </Border>
+      </WrapPanel>
+
+      <TextBlock Text="Chiffre d'affaires" FontSize="20" FontWeight="SemiBold"
+                 Foreground="{StaticResource TextFillColorPrimary}" />
+
+      <WrapPanel HorizontalAlignment="Left">
+        <!-- CA total -->
+        <Border Width="300" CornerRadius="8" Padding="20" Margin="0,0,12,12"
+                Background="{StaticResource CardBackgroundFillColorDefault}"
+                BorderBrush="{StaticResource CardStrokeColorDefault}" BorderThickness="1">
+          <StackPanel Spacing="4">
+            <TextBlock Text="Total cumulé" FontSize="14"
+                       Foreground="{StaticResource TextFillColorSecondary}" />
+            <TextBlock FontSize="30" FontWeight="Bold"
+                       Foreground="{StaticResource TextFillColorPrimary}">
+              <TextBlock.Text>
+                <MultiBinding StringFormat="{}{0:N0} Ar">
+                  <Binding Path="ChiffreAffaires" />
+                </MultiBinding>
+              </TextBlock.Text>
+            </TextBlock>
+          </StackPanel>
+        </Border>
+
+        <!-- CA mois -->
+        <Border Width="300" CornerRadius="8" Padding="20" Margin="0,0,12,12"
+                Background="{StaticResource CardBackgroundFillColorDefault}"
+                BorderBrush="{StaticResource CardStrokeColorDefault}" BorderThickness="1">
+          <StackPanel Spacing="4">
+            <TextBlock Text="Ce mois-ci" FontSize="14"
+                       Foreground="{StaticResource TextFillColorSecondary}" />
+            <TextBlock FontSize="30" FontWeight="Bold"
+                       Foreground="{StaticResource TextFillColorPrimary}">
+              <TextBlock.Text>
+                <MultiBinding StringFormat="{}{0:N0} Ar">
+                  <Binding Path="ChiffreAffairesMois" />
+                </MultiBinding>
+              </TextBlock.Text>
+            </TextBlock>
+          </StackPanel>
+        </Border>
+
+        <!-- Stock faible -->
+        <Border Width="300" CornerRadius="8" Padding="20" Margin="0,0,12,12"
+                Background="{StaticResource CardBackgroundFillColorDefault}"
+                BorderBrush="{StaticResource CardStrokeColorDefault}" BorderThickness="1">
+          <StackPanel Spacing="4">
+            <TextBlock Text="Bijoux en stock faible (≤ 5)" FontSize="14"
+                       Foreground="{StaticResource TextFillColorSecondary}" />
+            <TextBlock Text="{Binding BijouxStockFaible}"
+                       FontSize="36" FontWeight="Bold"
+                       Foreground="Orange" />
+          </StackPanel>
+        </Border>
+      </WrapPanel>
+
+      <TextBlock Text="Gestion Bijouterie v1.0"
+                 FontSize="12" Margin="0,16,0,0"
+                 HorizontalAlignment="Center"
+                 Foreground="{StaticResource TextFillColorTertiary}" />
+    </StackPanel>
+  </ScrollViewer>
 </UserControl>

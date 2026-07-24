@@ -2,14 +2,115 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="600"
+             mc:Ignorable="d" d:DesignWidth="1000" d:DesignHeight="700"
              xmlns:vm="using:BijouterieApp.App.ViewModels"
              x:Class="BijouterieApp.App.Views.BijouxView"
              x:DataType="vm:BijouxViewModel">
-    <Grid Background="{StaticResource SolidBackgroundFillColorBase}">
-        <TextBlock Text="{Binding Titre}"
-                   FontSize="24" FontWeight="Bold"
-                   HorizontalAlignment="Center" VerticalAlignment="Center"
-                   Foreground="{StaticResource TextFillColorPrimary}" />
-    </Grid>
+  <DockPanel Margin="16">
+    <StackPanel DockPanel.Dock="Top" Spacing="8" Margin="0,0,0,12">
+      <TextBlock Text="Gestion des Bijoux" FontSize="22" FontWeight="Bold"
+                 Foreground="{StaticResource TextFillColorPrimary}" />
+      <TextBox PlaceholderText="Rechercher par nom, référence, matière, catégorie..."
+               Text="{Binding Recherche}"
+               UseFloatingPlaceholder="False" />
+    </StackPanel>
+
+    <DockPanel>
+      <Border DockPanel.Dock="Right" Width="360" Margin="16,0,0,0"
+              IsVisible="{Binding EstEnEdition}"
+              Background="{StaticResource CardBackgroundFillColorDefault}"
+              BorderBrush="{StaticResource CardStrokeColorDefault}"
+              BorderThickness="1" CornerRadius="8" Padding="16">
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+          <StackPanel Spacing="10" VerticalAlignment="Top">
+            <TextBlock Text="Formulaire bijou"
+                       FontWeight="SemiBold" FontSize="16"
+                       Foreground="{StaticResource TextFillColorPrimary}" />
+
+            <TextBox PlaceholderText="Référence *" Text="{Binding ReferenceSaisie}" />
+            <TextBox PlaceholderText="Nom *" Text="{Binding NomSaisi}" />
+
+            <TextBlock Text="Catégorie *"
+                       Foreground="{StaticResource TextFillColorSecondary}" FontSize="12" />
+            <ComboBox ItemsSource="{Binding Categories}"
+                      SelectedItem="{Binding CategorieSelectionnee}"
+                      DisplayMemberBinding="{Binding Nom}"
+                      PlaceholderText="Sélectionner une catégorie" />
+
+            <TextBox PlaceholderText="Matière (ex: Or, Argent)" Text="{Binding MatiereSaisie}" />
+            <TextBox PlaceholderText="Poids en grammes (optionnel)" Text="{Binding PoidsSaisi}" />
+            <TextBox PlaceholderText="Prix en Ar *" Text="{Binding PrixSaisi}" />
+            <TextBox PlaceholderText="Quantité en stock *" Text="{Binding QuantiteStockSaisie}" />
+
+            <TextBox PlaceholderText="Description (optionnelle)"
+                     Text="{Binding DescriptionSaisie}"
+                     AcceptsReturn="True" MinHeight="60"
+                     TextWrapping="Wrap" />
+
+            <StackPanel Spacing="4">
+              <TextBlock Text="Photo"
+                         Foreground="{StaticResource TextFillColorSecondary}" FontSize="12" />
+              <StackPanel Orientation="Horizontal" Spacing="8">
+                <Button Command="{Binding ChoisirPhotoCommand}" Content="Choisir une image"
+                        Padding="12,6" />
+                <TextBlock Text="{Binding PhotoPathSaisi}"
+                           TextWrapping="Wrap" VerticalAlignment="Center"
+                           Foreground="{StaticResource TextFillColorSecondary}" FontSize="11"
+                           MaxWidth="180" />
+              </StackPanel>
+              <Border CornerRadius="6" Width="120" Height="120"
+                      Background="{StaticResource SolidBackgroundFillColorTertiary}"
+                      ClipToBounds="True">
+                <Image Source="{Binding PhotoPathSaisi}"
+                       Stretch="Uniform" />
+              </Border>
+            </StackPanel>
+
+            <TextBlock Text="{Binding MessageErreur}"
+                       Foreground="{StaticResource SystemErrorTextColor}"
+                       TextWrapping="Wrap" />
+            <StackPanel Orientation="Horizontal" Spacing="8" HorizontalAlignment="Right">
+              <Button Command="{Binding AnnulerCommand}" Content="Annuler"
+                      Background="{StaticResource SolidBackgroundFillColorTertiary}" />
+              <Button Command="{Binding EnregistrerCommand}" Content="Enregistrer"
+                      Classes="accent" />
+            </StackPanel>
+          </StackPanel>
+        </ScrollViewer>
+      </Border>
+
+      <DockPanel>
+        <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" Spacing="8" Margin="0,8,0,0">
+          <Button Command="{Binding NouveauCommand}" Content="Nouveau"
+                  Classes="accent" />
+          <Button Command="{Binding ModifierCommand}" Content="Modifier" />
+          <Button Command="{Binding SupprimerCommand}" Content="Supprimer"
+                  Background="{StaticResource SystemErrorBackgroundColor}"
+                  Foreground="{StaticResource SystemErrorTextColor}" />
+          <Button Command="{Binding GenererListeBijouxCommand}" Content="Catalogue PDF"
+                  Margin="16,0,0,0" />
+        </StackPanel>
+
+        <DataGrid ItemsSource="{Binding BijouxFiltres}"
+                  SelectedItem="{Binding BijouSelectionne}"
+                  AutoGenerateColumns="False"
+                  IsReadOnly="True"
+                  Background="{StaticResource CardBackgroundFillColorDefault}"
+                  BorderBrush="{StaticResource CardStrokeColorDefault}"
+                  BorderThickness="1"
+                  CornerRadius="4"
+                  HeadersVisibility="Column">
+          <DataGrid.Columns>
+            <DataGridTextColumn Header="Réf." Binding="{Binding Reference}" Width="90" />
+            <DataGridTextColumn Header="Nom" Binding="{Binding Nom}" Width="*" />
+            <DataGridTextColumn Header="Catégorie" Binding="{Binding Categorie.Nom}" Width="120" />
+            <DataGridTextColumn Header="Matière" Binding="{Binding Matiere}" Width="100" />
+            <DataGridTextColumn Header="Poids (g)" Binding="{Binding PoidsGrammes, StringFormat='{}{0:F2}'}" Width="80" />
+            <DataGridTextColumn Header="Prix (Ar)" Binding="{Binding Prix, StringFormat='{}{0:N0}'}" Width="100" />
+            <DataGridTextColumn Header="Stock" Binding="{Binding QuantiteStock}" Width="60" />
+          </DataGrid.Columns>
+        </DataGrid>
+      </DockPanel>
+    </DockPanel>
+  </DockPanel>
 </UserControl>

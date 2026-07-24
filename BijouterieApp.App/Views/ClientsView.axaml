@@ -2,14 +2,80 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="600"
+             mc:Ignorable="d" d:DesignWidth="1000" d:DesignHeight="700"
              xmlns:vm="using:BijouterieApp.App.ViewModels"
              x:Class="BijouterieApp.App.Views.ClientsView"
              x:DataType="vm:ClientsViewModel">
-    <Grid Background="{StaticResource SolidBackgroundFillColorBase}">
-        <TextBlock Text="{Binding Titre}"
-                   FontSize="24" FontWeight="Bold"
-                   HorizontalAlignment="Center" VerticalAlignment="Center"
-                   Foreground="{StaticResource TextFillColorPrimary}" />
-    </Grid>
+  <DockPanel Margin="16">
+    <StackPanel DockPanel.Dock="Top" Spacing="8" Margin="0,0,0,12">
+      <TextBlock Text="Gestion des Clients" FontSize="22" FontWeight="Bold"
+                 Foreground="{StaticResource TextFillColorPrimary}" />
+      <TextBox PlaceholderText="Rechercher par nom, prénom, n° client, téléphone, email..."
+               Text="{Binding Recherche}"
+               UseFloatingPlaceholder="False" />
+    </StackPanel>
+
+    <DockPanel>
+      <Border DockPanel.Dock="Right" Width="340" Margin="16,0,0,0"
+              IsVisible="{Binding EstEnEdition}"
+              Background="{StaticResource CardBackgroundFillColorDefault}"
+              BorderBrush="{StaticResource CardStrokeColorDefault}"
+              BorderThickness="1" CornerRadius="8" Padding="16">
+        <StackPanel Spacing="10" VerticalAlignment="Top">
+          <TextBlock Text="Formulaire client"
+                     FontWeight="SemiBold" FontSize="16"
+                     Foreground="{StaticResource TextFillColorPrimary}" />
+
+          <TextBox PlaceholderText="Nom *" Text="{Binding NomSaisi}" />
+          <TextBox PlaceholderText="Prénom *" Text="{Binding PrenomSaisi}" />
+          <TextBox PlaceholderText="Téléphone" Text="{Binding TelephoneSaisi}" />
+          <TextBox PlaceholderText="Adresse"
+                   Text="{Binding AdresseSaisie}"
+                   AcceptsReturn="True" MinHeight="60"
+                   TextWrapping="Wrap" />
+          <TextBox PlaceholderText="Email" Text="{Binding EmailSaisi}" />
+
+          <TextBlock Text="{Binding MessageErreur}"
+                     Foreground="{StaticResource SystemErrorTextColor}"
+                     TextWrapping="Wrap" />
+          <StackPanel Orientation="Horizontal" Spacing="8" HorizontalAlignment="Right">
+            <Button Command="{Binding AnnulerCommand}" Content="Annuler"
+                    Background="{StaticResource SolidBackgroundFillColorTertiary}" />
+            <Button Command="{Binding EnregistrerCommand}" Content="Enregistrer"
+                    Classes="accent" />
+          </StackPanel>
+        </StackPanel>
+      </Border>
+
+      <DockPanel>
+        <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" Spacing="8" Margin="0,8,0,0">
+          <Button Command="{Binding NouveauCommand}" Content="Nouveau"
+                  Classes="accent" />
+          <Button Command="{Binding ModifierCommand}" Content="Modifier" />
+          <Button Command="{Binding SupprimerCommand}" Content="Supprimer"
+                  Background="{StaticResource SystemErrorBackgroundColor}"
+                  Foreground="{StaticResource SystemErrorTextColor}" />
+        </StackPanel>
+
+        <DataGrid ItemsSource="{Binding ClientsFiltres}"
+                  SelectedItem="{Binding ClientSelectionne}"
+                  AutoGenerateColumns="False"
+                  IsReadOnly="True"
+                  Background="{StaticResource CardBackgroundFillColorDefault}"
+                  BorderBrush="{StaticResource CardStrokeColorDefault}"
+                  BorderThickness="1"
+                  CornerRadius="4"
+                  HeadersVisibility="Column">
+          <DataGrid.Columns>
+            <DataGridTextColumn Header="N° Client" Binding="{Binding NumeroClient}" Width="100" />
+            <DataGridTextColumn Header="Nom" Binding="{Binding Nom}" Width="*" />
+            <DataGridTextColumn Header="Prénom" Binding="{Binding Prenom}" Width="*" />
+            <DataGridTextColumn Header="Téléphone" Binding="{Binding Telephone}" Width="140" />
+            <DataGridTextColumn Header="Email" Binding="{Binding Email}" Width="200" />
+            <DataGridTextColumn Header="Adresse" Binding="{Binding Adresse}" Width="200" />
+          </DataGrid.Columns>
+        </DataGrid>
+      </DockPanel>
+    </DockPanel>
+  </DockPanel>
 </UserControl>
