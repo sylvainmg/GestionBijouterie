@@ -1,6 +1,11 @@
 <Styles xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
+  <Styles.Resources>
+    <SolidColorBrush x:Key="SystemFillColorCriticalBrush" Color="#C42B1C"/>
+    <SolidColorBrush x:Key="SystemFillColorCriticalBackgroundBrush" Color="#FDE7E9"/>
+  </Styles.Resources>
+
   <Style Selector="Button.accent">
     <Setter Property="MinWidth" Value="120"/>
     <Setter Property="Height" Value="32"/>
