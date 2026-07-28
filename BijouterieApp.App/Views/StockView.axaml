@@ -6,7 +6,7 @@
              xmlns:vm="using:BijouterieApp.App.ViewModels"
              x:Class="BijouterieApp.App.Views.StockView"
              x:DataType="vm:StockViewModel">
-  <DockPanel Margin="16">
+  <DockPanel Margin="24">
     <StackPanel DockPanel.Dock="Top" Spacing="8" Margin="0,0,0,12">
       <TextBlock Text="Gestion du Stock" FontSize="22" FontWeight="Bold"
                  Foreground="{StaticResource TextFillColorPrimary}" />
@@ -16,7 +16,7 @@
         <CheckBox Content="Afficher alertes (stock ≤ seuil)"
                   IsChecked="{Binding AfficherAlertes}" />
         <StackPanel Spacing="2">
-          <TextBlock Text="Seuil alerte" FontSize="10" Foreground="{StaticResource TextFillColorSecondary}" />
+          <TextBlock Text="Seuil alerte" Classes="fieldLabel" />
           <NumericUpDown Value="{Binding SeuilAlerte}" Minimum="1" Maximum="100"
                          Width="100" FormatString="N0" />
         </StackPanel>
@@ -24,12 +24,12 @@
     </StackPanel>
 
     <Grid ColumnDefinitions="*,340" RowDefinitions="*">
-      <!-- Colonne gauche : DataGrid stock + mouvements -->
       <DockPanel Grid.Column="0" Margin="0,0,16,0">
         <DataGrid ItemsSource="{Binding BijouxFiltres}"
                   SelectedItem="{Binding BijouSelectionne}"
                   AutoGenerateColumns="False"
                   IsReadOnly="True"
+                  RowHeight="36"
                   Background="{StaticResource CardBackgroundFillColorDefault}"
                   BorderBrush="{StaticResource CardStrokeColorDefault}"
                   BorderThickness="1" CornerRadius="4" HeadersVisibility="Column">
@@ -51,7 +51,7 @@
                        Foreground="{StaticResource TextFillColorPrimary}" />
             <DataGrid ItemsSource="{Binding Mouvements}"
                       AutoGenerateColumns="False" IsReadOnly="True"
-                      MaxHeight="200"
+                      RowHeight="32" MaxHeight="200"
                       Background="{StaticResource CardBackgroundFillColorDefault}"
                       BorderBrush="{StaticResource CardStrokeColorDefault}"
                       BorderThickness="1" CornerRadius="4" HeadersVisibility="Column">
@@ -67,15 +67,12 @@
         </Border>
       </DockPanel>
 
-      <!-- Colonne droite : formulaire entrée de stock -->
       <Border Grid.Column="1"
               Background="{StaticResource CardBackgroundFillColorDefault}"
               BorderBrush="{StaticResource CardStrokeColorDefault}"
-              BorderThickness="1" CornerRadius="8" Padding="16">
-        <StackPanel Spacing="12" VerticalAlignment="Top">
-          <TextBlock Text="Entrée de stock"
-                     FontWeight="SemiBold" FontSize="16"
-                     Foreground="{StaticResource TextFillColorPrimary}" />
+              BorderThickness="1" CornerRadius="8" Padding="20">
+        <StackPanel Spacing="16" VerticalAlignment="Top">
+          <TextBlock Text="Entrée de stock" Classes="formTitle" />
 
           <TextBlock Text="{Binding BijouSelectionne.Nom}"
                      FontWeight="Bold" FontSize="14" TextWrapping="Wrap"
@@ -86,7 +83,7 @@
                      Foreground="{StaticResource TextFillColorSecondary}"
                      IsVisible="{Binding BijouSelectionne, Converter={x:Static ObjectConverters.IsNull}}" />
 
-          <TextBlock Text="Quantité à ajouter" Foreground="{StaticResource TextFillColorSecondary}" FontSize="12" />
+          <TextBlock Text="Quantité à ajouter" Classes="fieldLabel" />
           <NumericUpDown Value="{Binding QuantiteEntree}" Minimum="1" Maximum="9999"
                          FormatString="N0" />
 
@@ -97,8 +94,7 @@
           <Button Command="{Binding EntrerStockCommand}" Content="Ajouter au stock"
                   Classes="accent" HorizontalAlignment="Stretch" />
 
-          <TextBlock Text="{Binding MessageErreur}"
-                     Foreground="{StaticResource SystemErrorTextColor}" TextWrapping="Wrap" />
+          <TextBlock Text="{Binding MessageErreur}" Classes="errorMessage" />
           <TextBlock Text="{Binding MessageSucces}"
                      Foreground="Green" TextWrapping="Wrap" />
         </StackPanel>

@@ -8,7 +8,7 @@
              x:DataType="vm:LoginViewModel">
     <Grid Background="{StaticResource SystemAccentColor}">
         <Border HorizontalAlignment="Center" VerticalAlignment="Center"
-                Width="360" Padding="30"
+                Width="360" Padding="32"
                 Background="{StaticResource SolidBackgroundFillColorBase}"
                 CornerRadius="8" BoxShadow="0 4 12 rgba(0,0,0,0.15)">
             <StackPanel Spacing="16">
@@ -23,12 +23,12 @@
                            Margin="0,0,0,8" />
 
                 <TextBlock Text="Login" Foreground="{StaticResource TextFillColorPrimary}" />
-<TextBox Text="{Binding Login}"
-                          PlaceholderText="Saisissez votre login" />
+                <TextBox Text="{Binding Login}"
+                         PlaceholderText="Saisissez votre login" />
 
-                 <TextBlock Text="Mot de passe" Foreground="{StaticResource TextFillColorPrimary}" />
-                 <TextBox Text="{Binding MotDePasse}"
-                          PlaceholderText="Saisissez votre mot de passe"
+                <TextBlock Text="Mot de passe" Foreground="{StaticResource TextFillColorPrimary}" />
+                <TextBox Text="{Binding MotDePasse}"
+                         PlaceholderText="Saisissez votre mot de passe"
                          PasswordChar="*" />
 
                 <TextBlock Text="{Binding MessageErreur}"

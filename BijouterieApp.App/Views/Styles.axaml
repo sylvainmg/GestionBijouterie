@@ -1,0 +1,58 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+  <Style Selector="Button.accent">
+    <Setter Property="MinWidth" Value="120"/>
+    <Setter Property="Height" Value="32"/>
+    <Setter Property="CornerRadius" Value="4"/>
+    <Setter Property="Padding" Value="16,0"/>
+    <Setter Property="FontSize" Value="13"/>
+  </Style>
+
+  <Style Selector="Button.danger">
+    <Setter Property="MinWidth" Value="120"/>
+    <Setter Property="Height" Value="32"/>
+    <Setter Property="CornerRadius" Value="4"/>
+    <Setter Property="Padding" Value="16,0"/>
+    <Setter Property="FontSize" Value="13"/>
+    <Setter Property="Background" Value="{StaticResource SystemErrorBackgroundColor}"/>
+    <Setter Property="Foreground" Value="{StaticResource SystemErrorTextColor}"/>
+  </Style>
+
+  <Style Selector="Button.cancel">
+    <Setter Property="MinWidth" Value="120"/>
+    <Setter Property="Height" Value="32"/>
+    <Setter Property="CornerRadius" Value="4"/>
+    <Setter Property="Padding" Value="16,0"/>
+    <Setter Property="FontSize" Value="13"/>
+    <Setter Property="Background" Value="{StaticResource SolidBackgroundFillColorTertiary}"/>
+  </Style>
+
+  <Style Selector="Button.neutral">
+    <Setter Property="MinWidth" Value="120"/>
+    <Setter Property="Height" Value="32"/>
+    <Setter Property="CornerRadius" Value="4"/>
+    <Setter Property="Padding" Value="16,0"/>
+    <Setter Property="FontSize" Value="13"/>
+  </Style>
+
+  <Style Selector="TextBlock.formTitle">
+    <Setter Property="FontWeight" Value="SemiBold"/>
+    <Setter Property="FontSize" Value="16"/>
+    <Setter Property="Foreground" Value="{StaticResource TextFillColorPrimary}"/>
+    <Setter Property="Margin" Value="0,0,0,8"/>
+  </Style>
+
+  <Style Selector="TextBlock.fieldLabel">
+    <Setter Property="Foreground" Value="{StaticResource TextFillColorSecondary}"/>
+    <Setter Property="FontSize" Value="12"/>
+    <Setter Property="Margin" Value="0,0,0,4"/>
+  </Style>
+
+  <Style Selector="TextBlock.errorMessage">
+    <Setter Property="Foreground" Value="{StaticResource SystemErrorTextColor}"/>
+    <Setter Property="TextWrapping" Value="Wrap"/>
+    <Setter Property="Margin" Value="0,4,0,0"/>
+  </Style>
+
+</ResourceDictionary>

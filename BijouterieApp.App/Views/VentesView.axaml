@@ -6,7 +6,7 @@
              xmlns:vm="using:BijouterieApp.App.ViewModels"
              x:Class="BijouterieApp.App.Views.VentesView"
              x:DataType="vm:VentesViewModel">
-  <DockPanel Margin="16">
+  <DockPanel Margin="24">
     <StackPanel DockPanel.Dock="Top" Spacing="8" Margin="0,0,0,12">
       <TextBlock Text="Gestion des Ventes" FontSize="22" FontWeight="Bold"
                  Foreground="{StaticResource TextFillColorPrimary}" />
@@ -16,31 +16,30 @@
         <Button Command="{Binding NouvelleVenteCommand}" Content="Nouvelle vente"
                 Classes="accent" />
         <Button Command="{Binding GenererFactureCommand}" Content="Facture PDF"
+                Classes="neutral"
                 IsVisible="{Binding VenteSelectionnee, Converter={x:Static ObjectConverters.IsNotNull}}" />
-        <Button Command="{Binding GenererListeVentesPeriodeCommand}" Content="Rapport du mois" />
+        <Button Command="{Binding GenererListeVentesPeriodeCommand}" Content="Rapport du mois"
+                Classes="neutral" />
       </StackPanel>
     </StackPanel>
 
     <DockPanel>
-      <!-- Panneau création de vente -->
-      <Border DockPanel.Dock="Right" Width="380" Margin="16,0,0,0"
+      <Border DockPanel.Dock="Right" Width="360" Margin="20,0,0,0"
               IsVisible="{Binding EstEnEdition}"
               Background="{StaticResource CardBackgroundFillColorDefault}"
               BorderBrush="{StaticResource CardStrokeColorDefault}"
-              BorderThickness="1" CornerRadius="8" Padding="16">
+              BorderThickness="1" CornerRadius="8" Padding="20">
         <ScrollViewer VerticalScrollBarVisibility="Auto">
-          <StackPanel Spacing="10" VerticalAlignment="Top">
-            <TextBlock Text="Nouvelle vente"
-                       FontWeight="SemiBold" FontSize="16"
-                       Foreground="{StaticResource TextFillColorPrimary}" />
+          <StackPanel Spacing="16" VerticalAlignment="Top">
+            <TextBlock Text="Nouvelle vente" Classes="formTitle" />
 
-            <TextBlock Text="Client *" Foreground="{StaticResource TextFillColorSecondary}" FontSize="12" />
+            <TextBlock Text="Client *" Classes="fieldLabel" />
             <ComboBox ItemsSource="{Binding Clients}"
                       SelectedItem="{Binding ClientSelectionne}"
                       DisplayMemberBinding="{Binding Prenom}"
                       PlaceholderText="Sélectionner un client" />
 
-            <TextBlock Text="Ajouter un bijou" Foreground="{StaticResource TextFillColorSecondary}" FontSize="12" />
+            <TextBlock Text="Ajouter un bijou" Classes="fieldLabel" />
             <StackPanel Orientation="Horizontal" Spacing="8">
               <ComboBox ItemsSource="{Binding BijouxDisponibles}"
                         SelectedItem="{Binding BijouSelectionne}"
@@ -52,7 +51,7 @@
 
             <DataGrid ItemsSource="{Binding LignesEnEdition}"
                       AutoGenerateColumns="False" IsReadOnly="True"
-                      MaxHeight="200"
+                      RowHeight="32" MaxHeight="200"
                       Background="Transparent"
                       HeadersVisibility="Column">
               <DataGrid.Columns>
@@ -81,11 +80,10 @@
               </TextBlock.Text>
             </TextBlock>
 
-            <TextBlock Text="{Binding MessageErreur}"
-                       Foreground="{StaticResource SystemErrorTextColor}" TextWrapping="Wrap" />
+            <TextBlock Text="{Binding MessageErreur}" Classes="errorMessage" />
             <StackPanel Orientation="Horizontal" Spacing="8" HorizontalAlignment="Right">
               <Button Command="{Binding AnnulerCommand}" Content="Annuler"
-                      Background="{StaticResource SolidBackgroundFillColorTertiary}" />
+                      Classes="cancel" />
               <Button Command="{Binding ValiderVenteCommand}" Content="Valider la vente"
                       Classes="accent" />
             </StackPanel>
@@ -93,11 +91,11 @@
         </ScrollViewer>
       </Border>
 
-      <!-- Liste des ventes -->
       <DataGrid ItemsSource="{Binding VentesFiltrees}"
                 SelectedItem="{Binding VenteSelectionnee}"
                 AutoGenerateColumns="False"
                 IsReadOnly="True"
+                RowHeight="36"
                 Background="{StaticResource CardBackgroundFillColorDefault}"
                 BorderBrush="{StaticResource CardStrokeColorDefault}"
                 BorderThickness="1"

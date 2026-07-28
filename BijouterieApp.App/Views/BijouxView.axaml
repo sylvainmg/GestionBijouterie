@@ -6,7 +6,7 @@
              xmlns:vm="using:BijouterieApp.App.ViewModels"
              x:Class="BijouterieApp.App.Views.BijouxView"
              x:DataType="vm:BijouxViewModel">
-  <DockPanel Margin="16">
+  <DockPanel Margin="24">
     <StackPanel DockPanel.Dock="Top" Spacing="8" Margin="0,0,0,12">
       <TextBlock Text="Gestion des Bijoux" FontSize="22" FontWeight="Bold"
                  Foreground="{StaticResource TextFillColorPrimary}" />
@@ -16,22 +16,19 @@
     </StackPanel>
 
     <DockPanel>
-      <Border DockPanel.Dock="Right" Width="360" Margin="16,0,0,0"
+      <Border DockPanel.Dock="Right" Width="340" Margin="20,0,0,0"
               IsVisible="{Binding EstEnEdition}"
               Background="{StaticResource CardBackgroundFillColorDefault}"
               BorderBrush="{StaticResource CardStrokeColorDefault}"
-              BorderThickness="1" CornerRadius="8" Padding="16">
+              BorderThickness="1" CornerRadius="8" Padding="20">
         <ScrollViewer VerticalScrollBarVisibility="Auto">
-          <StackPanel Spacing="10" VerticalAlignment="Top">
-            <TextBlock Text="Formulaire bijou"
-                       FontWeight="SemiBold" FontSize="16"
-                       Foreground="{StaticResource TextFillColorPrimary}" />
+          <StackPanel Spacing="16" VerticalAlignment="Top">
+            <TextBlock Text="Formulaire bijou" Classes="formTitle" />
 
             <TextBox PlaceholderText="Référence *" Text="{Binding ReferenceSaisie}" />
             <TextBox PlaceholderText="Nom *" Text="{Binding NomSaisi}" />
 
-            <TextBlock Text="Catégorie *"
-                       Foreground="{StaticResource TextFillColorSecondary}" FontSize="12" />
+            <TextBlock Text="Catégorie *" Classes="fieldLabel" />
             <ComboBox ItemsSource="{Binding Categories}"
                       SelectedItem="{Binding CategorieSelectionnee}"
                       DisplayMemberBinding="{Binding Nom}"
@@ -48,8 +45,7 @@
                      TextWrapping="Wrap" />
 
             <StackPanel Spacing="4">
-              <TextBlock Text="Photo"
-                         Foreground="{StaticResource TextFillColorSecondary}" FontSize="12" />
+              <TextBlock Text="Photo" Classes="fieldLabel" />
               <StackPanel Orientation="Horizontal" Spacing="8">
                 <Button Command="{Binding ChoisirPhotoCommand}" Content="Choisir une image"
                         Padding="12,6" />
@@ -66,12 +62,10 @@
               </Border>
             </StackPanel>
 
-            <TextBlock Text="{Binding MessageErreur}"
-                       Foreground="{StaticResource SystemErrorTextColor}"
-                       TextWrapping="Wrap" />
+            <TextBlock Text="{Binding MessageErreur}" Classes="errorMessage" />
             <StackPanel Orientation="Horizontal" Spacing="8" HorizontalAlignment="Right">
               <Button Command="{Binding AnnulerCommand}" Content="Annuler"
-                      Background="{StaticResource SolidBackgroundFillColorTertiary}" />
+                      Classes="cancel" />
               <Button Command="{Binding EnregistrerCommand}" Content="Enregistrer"
                       Classes="accent" />
             </StackPanel>
@@ -80,21 +74,22 @@
       </Border>
 
       <DockPanel>
-        <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" Spacing="8" Margin="0,8,0,0">
+        <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" Spacing="8" Margin="0,12,0,0">
           <Button Command="{Binding NouveauCommand}" Content="Nouveau"
                   Classes="accent" />
-          <Button Command="{Binding ModifierCommand}" Content="Modifier" />
+          <Button Command="{Binding ModifierCommand}" Content="Modifier"
+                  Classes="neutral" />
           <Button Command="{Binding SupprimerCommand}" Content="Supprimer"
-                  Background="{StaticResource SystemErrorBackgroundColor}"
-                  Foreground="{StaticResource SystemErrorTextColor}" />
+                  Classes="danger" />
           <Button Command="{Binding GenererListeBijouxCommand}" Content="Catalogue PDF"
-                  Margin="16,0,0,0" />
+                  Classes="neutral" />
         </StackPanel>
 
         <DataGrid ItemsSource="{Binding BijouxFiltres}"
                   SelectedItem="{Binding BijouSelectionne}"
                   AutoGenerateColumns="False"
                   IsReadOnly="True"
+                  RowHeight="36"
                   Background="{StaticResource CardBackgroundFillColorDefault}"
                   BorderBrush="{StaticResource CardStrokeColorDefault}"
                   BorderThickness="1"
